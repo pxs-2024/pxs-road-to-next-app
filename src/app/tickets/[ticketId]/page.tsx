@@ -1,4 +1,4 @@
-import { use } from "react";
+// import { use } from "react";
 
 type TicketPageProps = {
 	params: {
@@ -7,9 +7,9 @@ type TicketPageProps = {
 };
 
 const TicketPage =  ({ params }: TicketPageProps) => {
-	const { ticketId } = use(params);
+	// const { ticketId } = use(params);
 
-	return <h1 className="text-lg">Ticket Page{ticketId} </h1>;
+	return <h1 className="text-lg">Ticket Page </h1>;
 };
 
 export default TicketPage;
