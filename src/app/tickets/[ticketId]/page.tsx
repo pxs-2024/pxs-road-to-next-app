@@ -9,7 +9,7 @@ type TicketPageProps = {
 const TicketPage =  ({ params }: TicketPageProps) => {
 	// const { ticketId } = use(params);
 
-	return <h1 className="text-lg">Ticket Page </h1>;
+	return <h1 className="text-lg">Ticket Page</h1>;
 };
 
 export default TicketPage;
