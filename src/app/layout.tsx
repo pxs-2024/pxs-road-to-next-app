@@ -1,7 +1,9 @@
 import "./globals.css";
+import { LucideBadge, LucideSquareKanban } from "lucide-react";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Link from "next/link";
+import { Header } from "@/components/header";
 import { buttonVariants } from "@/components/ui/button";
 import { homePath, ticketsPath } from "@/path";
 
@@ -28,31 +30,7 @@ export default function RootLayout({
 	return (
 		<html lang="en">
 			<body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-				<nav
-					className="
-						supports-backdrop-blur:bg-background/60
-						fixed left-0 right-0 top-0 z-20
-						border-b bg-background/95 backdrop-blur
-						w-full flex py-2.5 px-5 justify-between
-				"
-				>
-					<Link
-						className={buttonVariants({
-							variant: "outline",
-						})}
-						href={homePath()}
-					>
-						Home
-					</Link>
-					<Link
-						className={buttonVariants({
-							variant: "outline",
-						})}
-						href={ticketsPath()}
-					>
-						Tickets
-					</Link>
-				</nav>
+				<Header />
 				<main
 					className="
 						min-h-screen flex-1
