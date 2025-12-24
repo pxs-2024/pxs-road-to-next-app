@@ -1,6 +1,8 @@
+"use client";
 import { LucideBadge } from "lucide-react";
 import Link from "next/link";
 import { homePath, ticketsPath } from "@/path";
+import { ThemeSwitcher } from "./theme/theme-switcher";
 import { buttonVariants } from "./ui/button";
 
 const Header = () => {
@@ -13,23 +15,28 @@ const Header = () => {
 						w-full flex py-2.5 px-5 justify-between
 				"
 		>
-			<Link
-				className={buttonVariants({
-					variant: "ghost",
-				})}
-				href={homePath()}
-			>
-				<LucideBadge />
-				<h1 className="ml-2 text-lg font-semibold">TicketBounty</h1>
-			</Link>
-			<Link
-				className={buttonVariants({
-					variant: "default",
-				})}
-				href={ticketsPath()}
-			>
-				Tickets
-			</Link>
+			<div className="flex align-items gap-x-2">
+				<Link
+					className={buttonVariants({
+						variant: "ghost",
+					})}
+					href={homePath()}
+				>
+					<LucideBadge />
+					<h1 className="ml-2 text-lg font-semibold">TicketBounty</h1>
+				</Link>
+			</div>
+			<div className="flex align-items gap-x-2">
+				<ThemeSwitcher />
+				<Link
+					className={buttonVariants({
+						variant: "default",
+					})}
+					href={ticketsPath()}
+				>
+					Tickets
+				</Link>
+			</div>
 		</nav>
 	);
 };
