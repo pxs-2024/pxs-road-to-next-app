@@ -1,20 +1,21 @@
-"use client";
 import Link from "next/link";
-import { useParams } from "next/navigation";
 import { Placeholder } from "@/components/placeholder";
 import { Button } from "@/components/ui/button";
-import { initialTickets } from "@/data";
+import { getTicket } from "@/features/queries/get-ticket";
 import { TicketItem } from "@/features/ticket/components/ticket-item";
 import { ticketsPath } from "@/path";
 
-type TicketPageParams = {
-	ticketId: string;
+type TicketPageProps = {
+	params: {
+		ticketId: string;
+	};
 };
 
-const TicketPage = () => {
-	const params = useParams<TicketPageParams>();
+const TicketPage = async ({ params }: TicketPageProps) => {
+	const { ticketId } = await params;
+	const ticket = await getTicket(ticketId);
 
-	const ticket = initialTickets.find((ticket) => ticket.id === params.ticketId);
+	// const ticket = initialTickets.find((ticket) => ticket.id === params.ticketId);
 
 	if (!ticket) {
 		return (
@@ -31,7 +32,7 @@ const TicketPage = () => {
 
 	return (
 		<div className="flex justify-center animate-fade-in-from-top">
-			<TicketItem ticket={ticket} isDetail  ></TicketItem>
+			<TicketItem ticket={ticket} isDetail></TicketItem>
 		</div>
 	);
 };
