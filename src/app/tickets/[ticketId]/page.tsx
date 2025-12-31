@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { getTicket } from "@/features/queries/get-ticket";
 import { TicketItem } from "@/features/ticket/components/ticket-item";
 import { ticketsPath } from "@/path";
+import { getTickets } from "@/features/queries/get-tickets";
 
 type TicketPageProps = {
 	params: {
@@ -16,19 +17,7 @@ const TicketPage = async ({ params }: TicketPageProps) => {
 	const { ticketId } = await params;
 	const ticket = await getTicket(ticketId);
 
-	// const ticket = initialTickets.find((ticket) => ticket.id === params.ticketId);
-
 	if (!ticket) {
-		// return (
-		// 	<Placeholder
-		// 		label="Ticket not found"
-		// 		button={
-		// 			<Button asChild variant={"outline"}>
-		// 				<Link href={ticketsPath()}>Go back to tickets</Link>
-		// 			</Button>
-		// 		}
-		// 	/>
-		// );
 		notFound();
 	}
 
@@ -38,5 +27,13 @@ const TicketPage = async ({ params }: TicketPageProps) => {
 		</div>
 	);
 };
+
+// export async function generateStaticParams() {
+// 	const tickets = await getTickets();
+
+// 	return tickets.map((ticket) => ({
+// 		ticketId: ticket.id,
+// 	}));
+// }
 
 export default TicketPage;
