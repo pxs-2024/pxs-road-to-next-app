@@ -1,14 +1,12 @@
 "use client";
-import { Button } from "@/components/ui/button";
+import { FiledError } from "@/components/form/filed-error";
+import { SubmitButton } from "@/components/form/submit-button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Label } from "@radix-ui/react-label";
-import { upsertTicket } from "../actions/upsert-ticket";
 import { Ticket } from "@/generated/prisma/client";
+import { Label } from "@radix-ui/react-label";
 import { useActionState } from "react";
-import { LucideLoaderCircle } from "lucide-react";
-import { useFormStatus } from "react-dom";
-import { SubmitButton } from "@/components/form/submit-button";
+import { upsertTicket } from "../actions/upsert-ticket";
 
 type TicketUpsertFormProps = {
 	ticket?: Ticket;
@@ -17,8 +15,8 @@ type TicketUpsertFormProps = {
 const TicketUpsertForm = ({ ticket }: TicketUpsertFormProps) => {
 	const [actionState, action] = useActionState(upsertTicket.bind(null, ticket?.id), {
 		message: "",
+		fieldErrors: {},
 	});
-
 	return (
 		<form action={action} className="flex flex-col gap-y-2">
 			<Label htmlFor="title">Title</Label>
@@ -28,6 +26,7 @@ const TicketUpsertForm = ({ ticket }: TicketUpsertFormProps) => {
 				type="text"
 				defaultValue={(actionState.payload?.get("title") as string) ?? ticket?.title}
 			/>
+			<FiledError actionState={actionState} name="title"/>
 
 			<Label htmlFor="content">Content</Label>
 			<Textarea
@@ -35,10 +34,14 @@ const TicketUpsertForm = ({ ticket }: TicketUpsertFormProps) => {
 				name="content"
 				defaultValue={(actionState.payload?.get("content") as string) ?? ticket?.content}
 			/>
+			<FiledError actionState={actionState} name="content"/>
+
 			<SubmitButton label={ticket ? "Update" : "Create"} />
+
 			{actionState.message}
 		</form>
 	);
 };
 
 export { TicketUpsertForm };
+

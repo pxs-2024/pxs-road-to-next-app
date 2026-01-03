@@ -1,13 +1,9 @@
-import { Suspense } from "react";
-import { ErrorBoundary } from "react-error-boundary";
 import { Heading } from "@/components/heading";
-import { Placeholder } from "@/components/placeholder";
 import { Spinner } from "@/components/spinner";
-import { TicketList } from "@/features/ticket/components/ticket-list";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { TicketCreateForm } from "@/features/ticket/components/ticket-create-form";
 import { CardCompact } from "@/components/ui/card-compact";
+import { TicketList } from "@/features/ticket/components/ticket-list";
 import { TicketUpsertForm } from "@/features/ticket/components/ticket-upsert-form";
+import { Suspense } from "react";
 
 const TicketsPage = () => {
 	return (

@@ -31,7 +31,7 @@ export const upsertTicket = async (
 			create: data,
 		});
 	} catch (error) {
-		return fromErrorToActionState(error,formData);
+		return fromErrorToActionState(error, formData);
 	}
 
 	revalidatePath(ticketsPath());
@@ -42,5 +42,6 @@ export const upsertTicket = async (
 
 	return {
 		message: "Ticket created",
+		fieldErrors: {},
 	};
 };
