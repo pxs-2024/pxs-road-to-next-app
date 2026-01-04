@@ -1,29 +1,50 @@
 import z, { object, ZodError } from "zod";
 
 export type ActionState = {
+	status?: "SUCCESS" | "ERROR";
 	message: string;
 	payload?: FormData;
 	fieldErrors: Record<string, string[] | undefined>;
+	timestamp: number;
+};
+
+export const EMPTY_ACTION_STATE: ActionState = {
+	message: "",
+	fieldErrors: {},
+	timestamp: Date.now(),
 };
 
 export const fromErrorToActionState = (error: unknown, formData: FormData): ActionState => {
 	if (error instanceof ZodError) {
 		// zod验证错误
-		console.log(z.treeifyError(error), ">>>>object ");
 		return {
-			message: error.issues[0].message,
+			status: "ERROR",
+			message: "",
 			fieldErrors: error.flatten().fieldErrors,
 			payload: formData,
+			timestamp: Date.now(),
 		};
 	} else if (error instanceof Error) {
 		// 数据库操作错误
 		return {
+			status: "ERROR",
 			message: error.message,
 			fieldErrors: {},
 			payload: formData,
+			timestamp: Date.now(),
 		};
 	} else {
 		// 未知错误
-		return { message: "An unknown error occured", fieldErrors: {}, payload: formData };
+		return {
+			status: "ERROR",
+			message: "An unknown error occured",
+			fieldErrors: {},
+			payload: formData,
+			timestamp: Date.now(),
+		};
 	}
+};
+
+export const toActionState = (status: ActionState["status"], message: string): ActionState => {
+	return { status, message, fieldErrors: {}, timestamp: Date.now() };
 };
