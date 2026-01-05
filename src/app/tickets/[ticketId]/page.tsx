@@ -22,12 +22,12 @@ const TicketPage = async ({ params }: TicketPageProps) => {
 	}
 
 	return (
-		<div className="flex justify-center animate-fade-in-from-top">
-			<TicketItem ticket={ticket} isDetail></TicketItem>
-		</div>
+			<div className="flex justify-center animate-fade-in-from-top">
+				<TicketItem ticket={ticket} isDetail></TicketItem>
+			</div>
 	);
 };
-
+// 如何将动态页面生成静态页面
 // export async function generateStaticParams() {
 // 	const tickets = await getTickets();
 

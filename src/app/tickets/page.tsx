@@ -1,4 +1,5 @@
 import { Heading } from "@/components/heading";
+import { RedirectToast } from "@/components/redirect-toast";
 import { Spinner } from "@/components/spinner";
 import { CardCompact } from "@/components/ui/card-compact";
 import { TicketList } from "@/features/ticket/components/ticket-list";
