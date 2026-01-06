@@ -5,7 +5,7 @@ type FiledErrorProps = {
 	name: string;
 };
 
-const FiledError = ({ actionState, name }: FiledErrorProps) => {
+const FieldError = ({ actionState, name }: FiledErrorProps) => {
 	const message = actionState.fieldErrors[name]?.[0];
 
 	if (!message) {
@@ -14,4 +14,4 @@ const FiledError = ({ actionState, name }: FiledErrorProps) => {
 
 	return <span className="text-xs text-red-500">{message}</span>;
 };
-export { FiledError };
+export { FieldError };
