@@ -1,7 +1,7 @@
 "use client";
 
 import clsx from "clsx";
-import { LucidePencil, LucideSquareArrowUpRight, LucideTrash } from "lucide-react";
+import { LucideMoreVertical, LucidePencil, LucideSquareArrowUpRight, LucideTrash } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
@@ -11,6 +11,7 @@ import { ticketEditPath, ticketPath } from "@/path";
 import { TICKETS_ICONS } from "../constants";
 import { deleteTicket } from "../actions/delete-ticket";
 import { toCurrencyFromCent } from "@/utils/currency";
+import { TicketMoreMenu } from "./ticket-more-menu";
 
 type TicketItemProps = {
 	ticket: Ticket;
@@ -46,6 +47,17 @@ const TicketItem = (props: TicketItemProps) => {
 		</Button>
 	);
 
+	const moreMenu = (
+		<TicketMoreMenu
+			trigger={
+				<Button variant="outline" size="icon">
+					<LucideMoreVertical className="h-4 w-4" />
+				</Button>
+			}
+			ticket={ticket}
+		/>
+	);
+
 	return (
 		<div
 			className={clsx("w-full flex gap-x-1", {
@@ -79,6 +91,7 @@ const TicketItem = (props: TicketItemProps) => {
 					<>
 						{editButton}
 						{deleteButton}
+						{moreMenu}
 					</>
 				) : (
 					<>
