@@ -1,7 +1,12 @@
 "use client";
 
 import clsx from "clsx";
-import { LucideMoreVertical, LucidePencil, LucideSquareArrowUpRight, LucideTrash } from "lucide-react";
+import {
+	LucideMoreVertical,
+	LucidePencil,
+	LucideSquareArrowUpRight,
+	LucideTrash,
+} from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
@@ -12,6 +17,7 @@ import { TICKETS_ICONS } from "../constants";
 import { deleteTicket } from "../actions/delete-ticket";
 import { toCurrencyFromCent } from "@/utils/currency";
 import { TicketMoreMenu } from "./ticket-more-menu";
+import { ConfirmDialog } from "@/components/cofirm-dialog";
 
 type TicketItemProps = {
 	ticket: Ticket;
@@ -41,11 +47,7 @@ const TicketItem = (props: TicketItemProps) => {
 		</Button>
 	);
 
-	const deleteButton = (
-		<Button variant="outline" size="icon" onClick={handleDeleteTicket}>
-			<LucideTrash className="h-4 w-4" />
-		</Button>
-	);
+
 
 	const moreMenu = (
 		<TicketMoreMenu
@@ -90,7 +92,6 @@ const TicketItem = (props: TicketItemProps) => {
 				{isDetail ? (
 					<>
 						{editButton}
-						{deleteButton}
 						{moreMenu}
 					</>
 				) : (

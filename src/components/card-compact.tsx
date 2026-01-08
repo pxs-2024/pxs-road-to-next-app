@@ -1,5 +1,4 @@
-import { TicketCreateForm } from "@/features/ticket/components/ticket-create-form";
-import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "./card";
+import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "./ui/card";
 
 type CardCompactProps = {
 	title: string;

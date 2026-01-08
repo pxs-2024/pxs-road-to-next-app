@@ -12,7 +12,7 @@ import { useActionFeedback } from "@/components/form/hooks/use-action-feedback";
 import { toast } from "sonner";
 import { Form } from "@/components/form/form";
 import { fromCent } from "@/utils/currency";
-import { DatePicker, ImperativeHandleFromDatePicker } from "@/components/ui/date-picker";
+import { DatePicker, ImperativeHandleFromDatePicker } from "@/components/date-picker";
 
 type TicketUpsertFormProps = {
 	ticket?: Ticket;
