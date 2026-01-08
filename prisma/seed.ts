@@ -1,5 +1,6 @@
 import 'dotenv/config';
 import { PrismaClient } from '../src/generated/prisma/client';
+import { TicketCreateManyInput } from '@/generated/prisma/models';
 
 const prisma = new PrismaClient();
 
@@ -28,7 +29,7 @@ const seed = async() => {
   await prisma.ticket.deleteMany();
 
   await prisma.ticket.createMany({
-    data: tickets,
+    data: tickets as TicketCreateManyInput[],
   });
 
   const t1 = performance.now();
