@@ -1,11 +1,6 @@
-import Link from "next/link";
-import { notFound } from "next/navigation";
-import { Placeholder } from "@/components/placeholder";
-import { Button } from "@/components/ui/button";
-import { getTicket } from "@/features/queries/get-ticket";
-import { TicketItem } from "@/features/ticket/components/ticket-item";
-import { ticketsPath } from "@/path";
-import { getTickets } from "@/features/queries/get-tickets";
+import { getTicket } from '@/features/queries/get-ticket';
+import { TicketItem } from '@/features/ticket/components/ticket-item';
+import { notFound } from 'next/navigation';
 
 type TicketPageProps = {
 	params: {
@@ -13,19 +8,19 @@ type TicketPageProps = {
 	};
 };
 
-const TicketPage = async ({ params }: TicketPageProps) => {
-	const { ticketId } = await params;
-	const ticket = await getTicket(ticketId);
+const TicketPage = async({ params }: TicketPageProps) => {
+  const { ticketId } = await params;
+  const ticket = await getTicket(ticketId);
 
-	if (!ticket) {
-		notFound();
-	}
+  if (!ticket) {
+    notFound();
+  }
 
-	return (
-			<div className="flex justify-center animate-fade-in-from-top">
-				<TicketItem ticket={ticket} isDetail></TicketItem>
-			</div>
-	);
+  return (
+    <div className="flex justify-center animate-fade-in-from-top">
+      <TicketItem ticket={ticket} isDetail></TicketItem>
+    </div>
+  );
 };
 // 如何将动态页面生成静态页面
 // export async function generateStaticParams() {

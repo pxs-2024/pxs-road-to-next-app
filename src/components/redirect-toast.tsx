@@ -1,25 +1,25 @@
-"use client";
+'use client';
 
-import { deleteCookieByKey, getCookieByKey } from "@/actions/cookies";
-import { usePathname } from "next/navigation";
-import { useEffect } from "react";
-import { toast } from "sonner";
+import { deleteCookieByKey, getCookieByKey } from '@/actions/cookies';
+import { usePathname } from 'next/navigation';
+import { useEffect } from 'react';
+import { toast } from 'sonner';
 
 const RedirectToast = () => {
-	const pathName = usePathname();
+  const pathName = usePathname();
 
-	useEffect(() => {
-		// todo 有cookie toast
-		(async () => {
-			const message = await getCookieByKey("toast");
-			if (message) {
-				toast.success(message);
-				await deleteCookieByKey("toast");
-			}
-		})();
-	}, [pathName]);
+  useEffect(() => {
+    // todo 有cookie toast
+    (async() => {
+      const message = await getCookieByKey('toast');
+      if (message) {
+        toast.success(message);
+        await deleteCookieByKey('toast');
+      }
+    })();
+  }, [pathName]);
 
-	return null;
+  return null;
 };
 
 export { RedirectToast };

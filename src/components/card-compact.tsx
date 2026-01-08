@@ -1,4 +1,4 @@
-import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "./ui/card";
+import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from './ui/card';
 
 type CardCompactProps = {
 	title: string;
@@ -9,16 +9,16 @@ type CardCompactProps = {
 };
 
 const CardCompact = ({ title, description, content, className, footer }: CardCompactProps) => {
-	return (
-		<Card className={className}>
-			<CardHeader>
-				<CardTitle>{title}</CardTitle>
-				<CardDescription>{description}</CardDescription>
-			</CardHeader>
-			<CardContent>{content}</CardContent>
-			{footer && <CardFooter>{footer}</CardFooter>}
-		</Card>
-	);
+  return (
+    <Card className={className}>
+      <CardHeader>
+        <CardTitle>{title}</CardTitle>
+        <CardDescription>{description}</CardDescription>
+      </CardHeader>
+      <CardContent>{content}</CardContent>
+      {footer && <CardFooter>{footer}</CardFooter>}
+    </Card>
+  );
 };
 
 export { CardCompact };
