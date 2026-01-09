@@ -6,7 +6,7 @@ import {
   fromErrorToActionState,
   toActionState,
 } from '@/components/form/utils/to-action-state';
-import prisma from '@/lib/prisma';
+import { prisma } from '@/lib/prisma';
 import { ticketPath, ticketsPath } from '@/path';
 import { toCent } from '@/utils/currency';
 import { revalidatePath } from 'next/cache';
