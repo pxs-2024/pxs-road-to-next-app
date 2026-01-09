@@ -6,11 +6,11 @@ import { SubmitButton } from '@/components/form/submit-button';
 import { EMPTY_ACTION_STATE } from '@/components/form/utils/to-action-state';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import { Ticket } from '@/generated/prisma/client';
 import { fromCent } from '@/utils/currency';
 import { Label } from '@radix-ui/react-label';
 import { useActionState, useRef } from 'react';
 import { upsertTicket } from '../actions/upsert-ticket';
+import { Ticket } from '@prisma/client';
 
 type TicketUpsertFormProps = {
 	ticket?: Ticket;

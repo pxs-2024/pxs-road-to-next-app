@@ -2,7 +2,6 @@
 
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { Ticket } from '@/generated/prisma/client';
 import { ticketEditPath, ticketPath } from '@/path';
 import { toCurrencyFromCent } from '@/utils/currency';
 import clsx from 'clsx';
@@ -14,6 +13,7 @@ import {
 import Link from 'next/link';
 import { TICKETS_ICONS } from '../constants';
 import { TicketMoreMenu } from './ticket-more-menu';
+import { Ticket } from '@prisma/client';
 
 type TicketItemProps = {
 	ticket: Ticket;
