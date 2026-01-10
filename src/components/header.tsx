@@ -1,7 +1,6 @@
-"use client";
 import { LucideBadge } from "lucide-react";
 import Link from "next/link";
-import { homePath, signInPath, signUpPath, ticketsPath } from "@/path";
+import { homePath, signInPath, signUpPath, ticketsPath } from "@/paths";
 import { ThemeSwitcher } from "./theme/theme-switcher";
 import { buttonVariants } from "./ui/button";
 

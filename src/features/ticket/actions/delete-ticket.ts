@@ -1,7 +1,7 @@
 'use server';
 
 import { redirect } from 'next/navigation';
-import { ticketsPath } from '@/path';
+import { ticketsPath } from '@/paths';
 import { prisma } from '@/lib/prisma';
 import { revalidatePath } from 'next/cache';
 import { setCookieByKey } from '@/actions/cookies';
