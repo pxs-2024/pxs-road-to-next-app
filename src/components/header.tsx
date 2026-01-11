@@ -1,11 +1,22 @@
-import { LucideBadge } from "lucide-react";
-import Link from "next/link";
+"use client";
+
+import { signOut } from "@/features/auth/actions/sign-out";
+import { useAuth } from "@/features/auth/hooks/use-auth";
 import { homePath, signInPath, signUpPath, ticketsPath } from "@/paths";
+import { LucideBadge, LucideLogOut } from "lucide-react";
+import Link from "next/link";
+import { SubmitButton } from "./form/submit-button";
 import { ThemeSwitcher } from "./theme/theme-switcher";
 import { buttonVariants } from "./ui/button";
 
 const Header = () => {
-	const navItems = (
+	const { user, isFetched } = useAuth();
+
+	if (!isFetched) {
+		return null;
+	}
+
+	const navItems = user ? (
 		<>
 			<Link
 				className={buttonVariants({
@@ -15,7 +26,13 @@ const Header = () => {
 			>
 				Tickets
 			</Link>
-      <Link
+			<form action={signOut}>
+				<SubmitButton label="Sign Out" icon={<LucideLogOut />}></SubmitButton>
+			</form>
+		</>
+	) : (
+		<>
+			<Link
 				className={buttonVariants({
 					variant: "outline",
 				})}
@@ -23,9 +40,9 @@ const Header = () => {
 			>
 				Sign Up
 			</Link>
-      <Link
+			<Link
 				className={buttonVariants({
-					variant: "outline",
+					variant: "default",
 				})}
 				href={signInPath()}
 			>
@@ -37,6 +54,7 @@ const Header = () => {
 	return (
 		<nav
 			className="
+						animate-header-from-top
 						supports-backdrop-blur:bg-background/60
 						fixed left-0 right-0 top-0 z-20
 						border-b bg-background/95 backdrop-blur
@@ -63,3 +81,4 @@ const Header = () => {
 };
 
 export { Header };
+

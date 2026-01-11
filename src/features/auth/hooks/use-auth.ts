@@ -1,0 +1,24 @@
+import { usePathname } from "next/navigation";
+import { useState, useEffect } from "react";
+import { getAuth } from "../queries/get-auth";
+import { User as AuthUser } from "lucia";
+
+const useAuth = () => {
+	const [user, setUser] = useState<AuthUser | null>(null);
+	const [isFetched, setIsFetched] = useState(false);
+
+	const pathName = usePathname();
+
+	useEffect(() => {
+		const fetchUser = async () => {
+			const { user } = await getAuth();
+			setUser(user);
+			setIsFetched(true);
+		};
+		fetchUser();
+	}, [pathName]);
+
+	return { user, isFetched };
+};
+
+export { useAuth };
