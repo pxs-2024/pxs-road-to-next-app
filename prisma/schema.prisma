@@ -5,7 +5,7 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider      = "prisma-client-js"
+  provider = "prisma-client-js"
 }
 
 model User {
@@ -14,6 +14,7 @@ model User {
   email        String    @unique
   passwordHash String
   sessions     Session[]
+  tickets      Ticket[]
 }
 
 model Session {
@@ -21,7 +22,7 @@ model Session {
   expiresAt DateTime
   userId    String
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  
+
   @@index([userId])
 }
 
@@ -40,6 +41,10 @@ model Ticket {
   status   TicketStatus @default(OPEN)
   deadline String
   bounty   Int
+  user     User         @relation(fields: [userId], references: [id] ,onDelete: Cascade)
+  userId   String
+
+  @@index([userId])
 }
 
 enum TicketStatus {

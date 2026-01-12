@@ -1,60 +1,69 @@
-'use server';
+"use server";
 
-import { setCookieByKey } from '@/actions/cookies';
+import { setCookieByKey } from "@/actions/cookies";
 import {
-  ActionState,
-  fromErrorToActionState,
-  toActionState,
-} from '@/components/form/utils/to-action-state';
-import { prisma } from '@/lib/prisma';
-import { ticketPath, ticketsPath } from '@/paths';
-import { toCent } from '@/utils/currency';
-import { revalidatePath } from 'next/cache';
-import { redirect } from 'next/navigation';
-import { z } from 'zod';
+	ActionState,
+	fromErrorToActionState,
+	toActionState,
+} from "@/components/form/utils/to-action-state";
+import { signIn } from "@/features/auth/actions/sign-in";
+import { getAuth } from "@/features/auth/queries/get-auth";
+import { prisma } from "@/lib/prisma";
+import { signInPath, ticketPath, ticketsPath } from "@/paths";
+import { toCent } from "@/utils/currency";
+import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
+import { z } from "zod";
 
 const upsetTicketSchema = z.object({
-  title: z.string().min(1).max(191),
-  content: z.string().min(1).max(1024),
-  deadline: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, 'Is required'),
-  bounty: z.coerce.number().positive(),
+	title: z.string().min(1).max(191),
+	content: z.string().min(1).max(1024),
+	deadline: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Is required"),
+	bounty: z.coerce.number().positive(),
 });
 
-export const upsertTicket = async(
-  id: string | undefined,
-  _actionState: ActionState,
-  formData: FormData,
+export const upsertTicket = async (
+	id: string | undefined,
+	_actionState: ActionState,
+	formData: FormData
 ) => {
-  try {
-    const data = upsetTicketSchema.parse({
-      title: formData.get('title'),
-      content: formData.get('content'),
-      deadline:formData.get('deadline'),
-      bounty:formData.get('bounty'),
-    });
+	const { user } = await getAuth();
 
-    const dbData = {
-      ...data,
-      bounty: toCent(data.bounty),
-    };
+	if (!user) {
+		redirect(signInPath());
+	}
 
-    await prisma.ticket.upsert({
-      where: {
-        id: id || '',
-      },
-      update: dbData,
-      create: dbData,
-    });
-  } catch (error) {
-    return fromErrorToActionState(error, formData);
-  }
+	try {
+		const data = upsetTicketSchema.parse({
+			title: formData.get("title"),
+			content: formData.get("content"),
+			deadline: formData.get("deadline"),
+			bounty: formData.get("bounty"),
+		});
 
-  revalidatePath(ticketsPath());
+		const dbData = {
+			...data,
+			userId: user.id,
+			bounty: toCent(data.bounty),
+		};
 
-  if (id) {
-    await setCookieByKey('toast', 'Ticket Updated');
-    redirect(ticketPath(id));
-  }
+		await prisma.ticket.upsert({
+			where: {
+				id: id || "",
+			},
+			update: dbData,
+			create: dbData,
+		});
+	} catch (error) {
+		return fromErrorToActionState(error, formData);
+	}
 
-  return toActionState('SUCCESS', 'Ticket created');
+	revalidatePath(ticketsPath());
+
+	if (id) {
+		await setCookieByKey("toast", "Ticket Updated");
+		redirect(ticketPath(id));
+	}
+
+	return toActionState("SUCCESS", "Ticket created");
 };
