@@ -7,6 +7,7 @@ import { SidebarItem } from "./sidebar-item";
 import { useAuth } from "@/features/auth/hooks/use-auth";
 import { usePathname } from "next/navigation";
 import { getActivePath } from "@/utils/getActivePath";
+import { signInPath, signUpPath } from "@/paths";
 
 const Sidebar = () => {
 	const { user, isFetched } = useAuth();
@@ -14,7 +15,8 @@ const Sidebar = () => {
 
 	const { activeIndex } = getActivePath(
 		pathName,
-		navItems.map((item) => item.href)
+		navItems.map((item) => item.href),
+		[signInPath(), signUpPath()]
 	);
 
 	const [isTransition, setTransition] = useState(false);
