@@ -29,7 +29,6 @@ const TicketItem = async (props: TicketItemProps) => {
 
 	const { user } = await getAuth();
 	const isTicketOwner = isOwner(user, ticket);
-	console.log(isTicketOwner,'>>>>isTicketOwner')
 	const detailButton = (
 		<Button variant="outline" size="icon" asChild>
 			<Link prefetch href={ticketPath(ticket.id)} className="text-sm">

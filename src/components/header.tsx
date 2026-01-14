@@ -17,19 +17,9 @@ const Header = () => {
 	}
 
 	const navItems = user ? (
-		<>
-			<Link
-				className={buttonVariants({
-					variant: "default",
-				})}
-				href={ticketsPath()}
-			>
-				Tickets
-			</Link>
-			<form action={signOut}>
-				<SubmitButton label="Sign Out" icon={<LucideLogOut />}></SubmitButton>
-			</form>
-		</>
+		<form action={signOut}>
+			<SubmitButton label="Sign Out" icon={<LucideLogOut />}></SubmitButton>
+		</form>
 	) : (
 		<>
 			<Link
@@ -81,4 +71,3 @@ const Header = () => {
 };
 
 export { Header };
-
