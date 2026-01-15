@@ -14,6 +14,15 @@ const eslintConfig = defineConfig([
 		"build/**",
 		"next-env.d.ts",
 	]),
+	// 新增：覆盖规则以允许使用 any 类型
+	{
+		rules: {
+			// 核心：关闭显式 any 的检测（允许 let a: any 写法）
+			"@typescript-eslint/no-explicit-any": "off",
+			// 可选：如需允许隐式 any（如未指定类型的参数），取消下面注释
+			// "@typescript-eslint/no-implicit-any": "off",
+		},
+	},
 	// {
 	// 	plugins: {
 	// 		"simple-import-sort": simpleImportSort,

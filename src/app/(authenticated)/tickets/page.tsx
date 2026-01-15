@@ -4,10 +4,15 @@ import { Spinner } from "@/components/spinner";
 import { getAuth } from "@/features/auth/queries/get-auth";
 import { TicketList } from "@/features/ticket/components/ticket-list";
 import { TicketUpsertForm } from "@/features/ticket/components/ticket-upsert-form";
-
+import { searchParamsCache } from "@/features/ticket/search-params";
+import { SearchParams } from "nuqs/server";
 import { Suspense } from "react";
 
-const TicketsPage = async () => {
+type TicketsPageProps = {
+	searchParams: Promise<SearchParams>;
+};
+
+const TicketsPage = async ({ searchParams }: TicketsPageProps) => {
 	const { user } = await getAuth();
 
 	return (
@@ -16,13 +21,13 @@ const TicketsPage = async () => {
 
 			<CardCompact
 				title="Create Ticket"
-				description="A new Ticket will be created"
-				content={<TicketUpsertForm />}
+				description="A new ticket will be created"
 				className="w-full max-w-[420px] self-center"
+				content={<TicketUpsertForm />}
 			/>
 
 			<Suspense fallback={<Spinner />}>
-				<TicketList userId={user?.id} />
+				<TicketList userId={user?.id} searchParams={searchParamsCache.parse(await searchParams)} />
 			</Suspense>
 		</div>
 	);

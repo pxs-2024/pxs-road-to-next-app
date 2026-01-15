@@ -3,7 +3,7 @@ import { CardCompact } from "@/components/card-compact";
 import { Separator } from "@/components/ui/separator";
 import { getAuth } from "@/features/auth/queries/get-auth";
 import { isOwner } from "@/features/auth/utils/is-owner";
-import { getTicket } from "@/features/queries/get-ticket";
+import { getTicket } from "@/features/ticket/queries/get-ticket";
 import { TicketUpsertForm } from "@/features/ticket/components/ticket-upsert-form";
 import { homePath, ticketPath } from "@/paths";
 import { notFound } from "next/navigation";
