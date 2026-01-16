@@ -1,6 +1,5 @@
 import { Heading } from "@/components/heading";
 
-import React from "react";
 import { AccountTabs } from "../_navigation/account-tab";
 
 const PasswordPage = () => {
