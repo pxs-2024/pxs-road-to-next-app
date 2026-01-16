@@ -1,43 +1,55 @@
 import { hash } from "@node-rs/argon2";
 import { PrismaClient } from "@prisma/client";
-import "dotenv/config";
 
 const prisma = new PrismaClient();
 
 const users = [
-	{ username: "admin", email: "pengxueshuo777@163.com" },
-
-	{ username: "pxs", email: "2829791064@qq.com" },
+	{
+		username: "admin",
+		email: "2829791064@qq.com",
+	},
+	{
+		username: "user",
+		// use your own email here
+		email: "hello@vdigital.design",
+	},
 ];
 
 const tickets = [
 	{
-		title: "工单1",
-		content: "这是第一个工单 from seed",
+		title: "Ticket 1",
+		content: "First ticket from DB.",
 		status: "DONE" as const,
 		deadline: new Date().toISOString().split("T")[0],
 		bounty: 499,
 	},
 	{
-		title: "工单2",
-		content: "这是第二个工单",
+		title: "Ticket 2",
+		content: "Second ticket from DB.",
 		status: "OPEN" as const,
 		deadline: new Date().toISOString().split("T")[0],
-		bounty: 499,
+		bounty: 399,
 	},
 	{
-		title: "工单3",
-		content: "这是第三个工单",
-		status: "DONE" as const,
+		title: "Ticket 3",
+		content: "Third ticket from DB.",
+		status: "IN_PROGRESS" as const,
 		deadline: new Date().toISOString().split("T")[0],
-		bounty: 499,
+		bounty: 599,
 	},
+];
+
+const comments = [
+	{ content: "First comment from DB." },
+	{ content: "Second comment from DB." },
+	{ content: "Third comment from DB." },
 ];
 
 const seed = async () => {
 	const t0 = performance.now();
 	console.log("DB Seed: Started ...");
 
+	await prisma.comment.deleteMany();
 	await prisma.ticket.deleteMany();
 	await prisma.user.deleteMany();
 
@@ -50,10 +62,18 @@ const seed = async () => {
 		})),
 	});
 
-	await prisma.ticket.createMany({
+	const dbTickets = await prisma.ticket.createManyAndReturn({
 		data: tickets.map((ticket) => ({
 			...ticket,
 			userId: dbUsers[0].id,
+		})),
+	});
+
+	await prisma.comment.createMany({
+		data: comments.map((comment) => ({
+			...comment,
+			ticketId: dbTickets[0].id,
+			userId: dbUsers[1].id,
 		})),
 	});
 
